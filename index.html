@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Values Reference Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .value-button {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .value-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .value-button:hover::before {
+            opacity: 0.7;
+        }
+
+        .value-button:active {
+            transform: translateY(-1px);
+            transition: transform 0.1s ease;
+        }
+
+        /* Color scheme for each button */
+        .value-button:nth-child(1) { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+        .value-button:nth-child(2) { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+        .value-button:nth-child(3) { background: linear-gradient(135deg, #45b7d1, #3498db); }
+        .value-button:nth-child(4) { background: linear-gradient(135deg, #96ceb4, #85c1a9); }
+        .value-button:nth-child(5) { background: linear-gradient(135deg, #feca57, #ff9ff3); }
+        .value-button:nth-child(6) { background: linear-gradient(135deg, #ff9ff3, #f368e0); }
+        .value-button:nth-child(7) { background: linear-gradient(135deg, #a8e6cf, #88d8a3); }
+        .value-button:nth-child(8) { background: linear-gradient(135deg, #ffd93d, #ff6b35); }
+        .value-button:nth-child(9) { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+        .value-button:nth-child(10) { background: linear-gradient(135deg, #fd79a8, #fdcb6e); }
+        .value-button:nth-child(11) { background: linear-gradient(135deg, #e17055, #d63031); }
+        .value-button:nth-child(12) { background: linear-gradient(135deg, #00b894, #00cec9); }
+        .value-button:nth-child(13) { background: linear-gradient(135deg, #0984e3, #6c5ce7); }
+        .value-button:nth-child(14) { background: linear-gradient(135deg, #a29bfe, #74b9ff); }
+        .value-button:nth-child(15) { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .value-button:nth-child(16) { background: linear-gradient(135deg, #00b894, #55a3ff); }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .modal p {
+            color: #4a5568;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .tap-hint {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .values-grid {
+                gap: 10px;
+            }
+            
+            .value-button {
+                font-size: 0.85rem;
+                padding: 10px;
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .modal-content {
+                margin: 20% auto;
+                padding: 25px;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .values-grid {
+                gap: 8px;
+            }
+            
+            .value-button {
+                font-size: 0.75rem;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Career Values</h1>
+            <p>Tap any value to explore what drives you</p>
+        </div>
+
+        <div class="values-grid" id="valuesGrid">
+            <!-- Values will be populated by JavaScript -->
+        </div>
+
+        <div class="tap-hint">
+            Choose the values that resonate most with you
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="valueModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <script>
+        const careerValues = [
+            {
+                name: "Achievement",
+                definition: "Accomplishing goals and being recognized for your successes and contributions."
+            },
+            {
+                name: "Autonomy",
+                definition: "Having independence and freedom in making decisions about your work and how you approach tasks."
+            },
+            {
+                name: "Balance",
+                definition: "Successfully integrating work responsibilities with personal life and maintaining harmony between both."
+            },
+            {
+                name: "Challenge",
+                definition: "Tackling difficult problems and obstacles that push you to grow and develop new skills."
+            },
+            {
+                name: "Collaboration",
+                definition: "Working closely with teams and building strong relationships with colleagues to achieve shared goals."
+            },
+            {
+                name: "Creativity",
+                definition: "Having opportunities for innovation and original thinking in your work and problem-solving approaches."
+            },
+            {
+                name: "Growth",
+                definition: "Engaging in continuous learning and development to expand your skills and advance your career."
+            },
+            {
+                name: "Impact",
+                definition: "Making a meaningful difference in your organization, community, or the world through your work."
+            },
+            {
+                name: "Leadership",
+                definition: "Having opportunities to guide and influence others, taking responsibility for team direction and outcomes."
+            },
+            {
+                name: "Recognition",
+                definition: "Being acknowledged and appreciated for your contributions, efforts, and professional accomplishments."
+            },
+            {
+                name: "Security",
+                definition: "Having stability and predictable outcomes in your work environment and career path."
+            },
+            {
+                name: "Service",
+                definition: "Contributing to the greater good and helping others through your work and professional activities."
+            },
+            {
+                name: "Status",
+                definition: "Gaining prestige and social recognition for your position, achievements, and professional standing."
+            },
+            {
+                name: "Variety",
+                definition: "Having diverse tasks and experiences that keep your work interesting and prevent monotony."
+            },
+            {
+                name: "Vision",
+                definition: "Working toward long-term goals and being part of something bigger than yourself with clear purpose."
+            },
+            {
+                name: "Wealth",
+                definition: "Earning significant financial rewards and building prosperity through your career achievements."
+            }
+        ];
+
+        // Modal elements
+        const modal = document.getElementById('valueModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        function createValueButton(value, index) {
+            const button = document.createElement('button');
+            button.className = 'value-button';
+            button.textContent = value.name;
+            
+            button.addEventListener('click', function() {
+                modalTitle.textContent = value.name;
+                modalDescription.textContent = value.definition;
+                modal.style.display = 'block';
+            });
+
+            return button;
+        }
+
+        // Close modal when clicking the X
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Populate the grid
+        const valuesGrid = document.getElementById('valuesGrid');
+        careerValues.forEach((value, index) => {
+            valuesGrid.appendChild(createValueButton(value, index));
+        });
+
+        // Add touch feedback for mobile
+        document.addEventListener('touchstart', function() {}, { passive: true });
+    </script>
+</body>
+</html>
